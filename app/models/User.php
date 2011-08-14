@@ -2,6 +2,7 @@
 
 require('Database.php');
 
+
 class User
 {
 
@@ -12,13 +13,18 @@ class User
     private $genre;
     private $db;
     private $data;
+    private $table = "user";
+    private $dados = array('user' => 'username',
+                            'pass'=>'password');
+    
+
 
 
     function __construct($u, $p, $n, $e, $g)
     {
         $this->username = $u;
         $this->password = $p;
-        /* $this->name = $n;
+       /* $this->name = $n;
       $this->email = $e;
       $this->genre = $g;*/
         $this->db=new Database();
@@ -36,27 +42,36 @@ class User
         }
     }
 
-    function login() {
+ function login($user,$pass) {
         $this->db->connect();
-        $this->query = "SELECT username from user where username='$username' and password='$password'";
-        $this->result =  $this->db->query($this->query) or die('error');
+        if($this->validate($user,$pass)) {
 
-        $this->row = mysql_fetch_assoc($this->result);
-        if(mysql_num_rows($this->result)) {
-            echo "login autorizado";
+        }
+     else {
+return false;
+     }
+    }
+
+    function validate($user,$pass) {
+       // $this->db->connect();
+        $sql = "SELECT COUNT(*) FROM `{$this->table}`WHERE `{$this->dados['user']}`='{$user}' and `{$this->dados['pass']}`='{$pass}'";
+        $query=mysql_query($sql);
+        if($query) {
+            $result = mysql_result($query,0);
         }
         else {
-            echo "erro";
+        return false;
         }
 
-
+        return ($result==1) ? true : false;
     }
+
 
     function logout() {
 
     }
 
-    function user_exists($user) {
+   /* function user_exists($user) {
         $this->query = "SELECT * FROM user where username = '$user'";
         $this->result = $this->db->query($this->query) or die ('error');
 
@@ -64,5 +79,5 @@ class User
         if(mysql_num_rows($this->result)) {
             $errMsg = 'Username exists';
         }
-    }
+    }*/
 }
