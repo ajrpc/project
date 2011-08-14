@@ -15,7 +15,10 @@ function view($file_name,$data) {
     }
 
 
-$request = isset($_GET['page']) ? $_GET['page'] : "main";
+$request = isset($_GET['p']) ? $_GET['p'] : "main";
+$request2 = isset($_GET['p2']) ? $_GET['p2'] : "";
 
+/*$url=$request;
+$url.=$request2;*/
 
-$controller = new Controller($request);
+$controller = new Controller($request,$request2);

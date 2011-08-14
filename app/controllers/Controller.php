@@ -10,8 +10,16 @@
 
 class Controller {
 
-  function __construct($request) {
-     view($request,NULL);
+  function __construct($request,$request2) {
+
+   if($request=="user" && $request2=="add") {
+
+       $this->user= $_POST['username'];
+
+   }else {
+       view($request,NULL);
+   }
+     //view($request,NULL);
 }
 
 }

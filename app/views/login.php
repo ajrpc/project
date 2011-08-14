@@ -1,20 +1,26 @@
-
+<div id="container">
 <div id="banner">
-    <div id="logo"><img src="<?php echo WEBPATH.'img/logo.gif'; ?>" alt="logo"></div>
-    <div id="menu"><a href="index.php?page=login">login</a><a href="index.php?page=signup">sign-up</a></div>
+    <div id="logo"><img src="<?php echo WEBPATH.'img/logo.png'; ?>" alt="logo"></div>
+    <div id="menu">
+        <ul>
+
+            <li><a href="index.php?p=login">login</a></li>
+            <li><a href="index.php?p=signup">signup</a></li>
+        </ul>
+    </div>
 </div>
 <div id="content">
 
-    <form action="" class="">
+    <form action="index.php?p=user&p2=add" method="POST">
 
         <fieldset>
             <p><label>Username:</label><input type="text" name="username" id="username" class="text-medium" /></p>
             <p><label>Password:</label><input type="password" name="password" id="password" class="text-medium" /></p>
-            <input type="submit" value="Login" />
+            <input type="submit" name="submit" value="Login" />
         </fieldset>
     </form>
 
 </div>
-
+</div>
 </body>
 </html>

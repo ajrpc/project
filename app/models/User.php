@@ -18,20 +18,36 @@ class User
     {
         $this->username = $u;
         $this->password = $p;
-        $this->name = $n;
-        $this->email = $e;
-        $this->genre = $g;
+        /* $this->name = $n;
+      $this->email = $e;
+      $this->genre = $g;*/
         $this->db=new Database();
     }
 
     function create() {
         $this->db->connect();
-        $this->data = compact($this->username,$this->password,$this->name,$this->email,$this->genre);
-        $this->db->insert('bla',$this->data);
+        if( $this->user_exists($this->username)) {
+
+
+            $this->data = compact($this->username,$this->password,$this->name,$this->email,$this->genre);
+            $this->db->insert('bla',$this->data); }
+        else {
+            echo 'User already exists';
+        }
     }
 
-    function login($user,$pass) {
+    function login() {
+        $this->db->connect();
+        $this->query = "SELECT username from user where username='$username' and password='$password'";
+        $this->result =  $this->db->query($this->query) or die('error');
 
+        $this->row = mysql_fetch_assoc($this->result);
+        if(mysql_num_rows($this->result)) {
+            echo "login autorizado";
+        }
+        else {
+            echo "erro";
+        }
 
 
     }
