@@ -9,7 +9,7 @@
     </div>
 </div>
 <div id="content">
-<form>
+    <form action="index.php?p=user&p2=add" method="POST">
      <fieldset>
             <p><label>Username:</label><input type="text" name="username" id="username" class="text-medium" /></p>
             <p><label>Password:</label><input type="password" name="password" id="password" class="text-medium" /></p>

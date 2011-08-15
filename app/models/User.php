@@ -1,6 +1,6 @@
 <?php
 
-require('Database.php');
+//require('Database.php');
 
 
 class User
@@ -13,25 +13,22 @@ class User
     private $genre;
     private $db;
     private $data;
-    private $table = "user";
+    private $table = "User";
     private $dados = array('user' => 'username',
                             'pass'=>'password');
-    
 
-
-
-    function __construct($u, $p, $n, $e, $g)
+    function __construct($u, $p)
     {
         $this->username = $u;
         $this->password = $p;
        /* $this->name = $n;
       $this->email = $e;
       $this->genre = $g;*/
-        $this->db=new Database();
+       // $this->db=new Database();
     }
 
     function create() {
-        $this->db->connect();
+      //  $this->db->connect();
         if( $this->user_exists($this->username)) {
 
 
@@ -42,24 +39,33 @@ class User
         }
     }
 
- function login($user,$pass) {
-        $this->db->connect();
-        if($this->validate($user,$pass)) {
+    function login() {
+       // $this->db->connect();
 
+        if($this->validate($this->username,$this->password)) {
+
+        if(!isset($_SESSION)) {
+            session_start();
+            $_SESSION['auth']=$this->username;
         }
-     else {
-return false;
-     }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     function validate($user,$pass) {
        // $this->db->connect();
-        $sql = "SELECT COUNT(*) FROM `{$this->table}`WHERE `{$this->dados['user']}`='{$user}' and `{$this->dados['pass']}`='{$pass}'";
-        $query=mysql_query($sql);
+        $sql = "SELECT COUNT(*) AS result FROM `{$this->table}`WHERE `{$this->dados['user']}`='{$user}' and `{$this->dados['pass']}`='{$pass}'";
+        $query=mysql_query($sql) or die(mysql_error());
         if($query) {
-            $result = mysql_result($query,0);
+            $result = mysql_result($query,0,result);
+            mysql_free_result($query);
         }
+
         else {
+            echo "erro";
         return false;
         }
 

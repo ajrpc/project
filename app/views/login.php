@@ -11,7 +11,7 @@
 </div>
 <div id="content">
 
-    <form action="index.php?p=user&p2=add" method="POST">
+    <form action="index.php?p=user&p2=login" method="POST">
 
         <fieldset>
             <p><label>Username:</label><input type="text" name="username" id="username" class="text-medium" /></p>
